@@ -1,0 +1,47 @@
+I push some/many notifications by using prowl over years (iOS push notification: https://www.prowlapp.com/). So i have implement an notificator-class to do it from traccar. It was very easy to do this based on the example i found as issue here: https://github.com/traccar/traccar/issues/3953)
+
+Prowl authentication based on an apikey and it allows to send information about the sender (application), a short information (event), a long text (description), a prirority (-2 to 2) and an URL.
+
+The first implementation used the ShortMessage format for event and description, priority 0 or 2 based on traccar-event-type.
+
+But this are very short information, so i switched to LongMessage-Format. But this includes HTML, which is shown nativly at the message. So i defined my own template "LongFormat", which is same then Full, but without HTML-Tags. Very good result, i think. To have this Template "long" parallel to "full" i have extent the class "NotificationFormatter" and add a method "formatLongMessage" identical to "formatFullMessage", except "full" -> "long".
+
+As i said Prowl is able to get an optional url and traccar have one which are coded in HTML-href-tag. But i want to have it sepparate. Looking more detailed to the templated and a got the idea to set an additional attribute near to "subject" and call it "url", that i can get from velocityContext and put it into an extended "FullMessage"-object, which i can use in NotificationFormatter.
+
+The result are very cool! See the (i) at the right to open the URL.
+
+![IMG_2190](https://user-images.githubusercontent.com/14792545/63265475-fea64e80-c28d-11e9-9730-4019df0a6d81.PNG)
+
+
+### Example configuration
+``` 
+    <entry key='notificator.types'>mail,web,prowl</entry>
+    <entry key='notificator.prowl.class'>org.traccar.notificators.NotificatorProwl</entry>
+    <entry key='notificator.prowl.url'>https://prowl.weks.net/publicapi/</entry>
+    <entry key='notificator.prowl.app'>TracCar</entry>
+```
+
+
+### User attribute
+
+**User have to set _prowl.service_ attribute with apikey (registered manually). Client must be subscribed to this service to get notifications.** 
+
+
+### Code
+
+The Code for "NotificatorProwl.java": 
+https://github.com/elvquant/traccar/commit/1e5afdb538ee8d4095ab6eaf862f435490e27f10
+
+Extended "NotificationFormatter.java" (add "public static FullMessage formatLongMessage"):
+https://github.com/elvquant/traccar/commit/4cd7367c15ef30705c99d8ab4d3231616591160d
+
+Extended "FullMessage.java" (add property "url", method "public FullMessage(String subject, String body, String url)" and "public String getUrl()"):
+https://github.com/elvquant/traccar/commit/4c5cd4dba40b228303680719ec940765e59a8700
+
+New Templates "long":
+https://github.com/elvquant/traccar/commit/5c9c6adf245c3ed9caa1a362706e9c0c26ee7436
+
+### Info
+- Years ago for android had exists "notifymyandroid"
+- Also a push notification services had exists for winPhone: "pushalot"
+- Cross platform exists, but i have never used it: https://www.pushsafer.com/ [0.99 for 1000 pushes]
