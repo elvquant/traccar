@@ -1,10 +1,10 @@
-I push some/many notifications by using prowl over years (iOS push notification: https://www.prowlapp.com/). So i have implement an notificator-class to do it from traccar. It was very easy to do this based on the example i found as issue here: https://github.com/traccar/traccar/issues/3953)
+I push some/many notifications by using prowl over years (https://www.prowlapp.com/ ; iOS push notification). So i have implement an notificator-class to do it from traccar. It was very easy to do this based on the example i found as issue here: https://github.com/traccar/traccar/issues/3953)
 
 Prowl authentication based on an apikey and it allows to send information about the sender (application), a short information (event), a long text (description), a prirority (-2 to 2) and an URL.
 
 The first implementation used the ShortMessage format for event and description, priority 0 or 2 based on traccar-event-type.
 
-But this are very short information, so i switched to LongMessage-Format. But this includes HTML, which is shown nativly at the message. So i defined my own template "LongFormat", which is same then Full, but without HTML-Tags. Very good result, i think. To have this Template "long" parallel to "full" i have extent the class "NotificationFormatter" and add a method "formatLongMessage" identical to "formatFullMessage", except "full" -> "long".
+But this are very short information, so i switched to FullMessage-Format. But this includes HTML, which is shown nativly at the message. So i defined my own template "LongFormat", which is same then Full, but without HTML-Tags. Very good result, i think. To have this Template "long" parallel to "full" i have extent the class "NotificationFormatter" and add a method "formatLongMessage" identical to "formatFullMessage", except "full" -> "long".
 
 As i said Prowl is able to get an optional url and traccar have one which are coded in HTML-href-tag. But i want to have it sepparate. Looking more detailed to the templated and a got the idea to set an additional attribute near to "subject" and call it "url", that i can get from velocityContext and put it into an extended "FullMessage"-object, which i can use in NotificationFormatter.
 
