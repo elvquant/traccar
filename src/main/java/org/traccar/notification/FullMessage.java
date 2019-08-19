@@ -20,10 +20,18 @@ public class FullMessage {
 
     private String subject;
     private String body;
+    private String url;
 
     public FullMessage(String subject, String body) {
         this.subject = subject;
         this.body = body;
+        this.url = "";
+    }
+
+    public FullMessage(String subject, String body, String url) {
+        this.subject = subject;
+        this.body = body;
+        this.url = url;
     }
 
     public String getSubject() {
@@ -32,5 +40,9 @@ public class FullMessage {
 
     public String getBody() {
         return body;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }
