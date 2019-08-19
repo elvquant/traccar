@@ -49,7 +49,7 @@ public class NotificatorProwl extends Notificator {
             form.param("event", message.getSubject());
             form.param("description", message.getBody());
             form.param("priority", String.valueOf(event.getType().equals(Event.TYPE_ALARM) ? 2 : 0));
-            form.param("url", message.getUrl());
+            form.param("url", Context.getVelocityEngine().getProperty("web.url") + "?eventId=" + String.valueOf(event.getId()));
             Context.getClient().target(url + "/add").request().async().post(Entity.form(form));
         }
     }
