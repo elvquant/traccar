@@ -98,6 +98,13 @@ public final class NotificationFormatter {
         return new FullMessage((String) velocityContext.get("subject"), formattedMessage);
     }
 
+    public static FullMessage formatLongMessage(long userId, Event event, Position position) {
+        VelocityContext velocityContext = prepareContext(userId, event, position);
+        String formattedMessage = formatMessage(velocityContext, userId, event, position, "long");
+ 
+        return new FullMessage((String) velocityContext.get("subject"), formattedMessage, (String) velocityContext.get("url"));
+    }
+
     public static String formatShortMessage(long userId, Event event, Position position) {
         return formatMessage(null, userId, event, position, "short");
     }
