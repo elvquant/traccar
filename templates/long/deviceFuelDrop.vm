@@ -1,0 +1,5 @@
+#set($subject = "$device.name: fuel drop")
+#set($url = "$webUrl?eventId=$event.id")
+Device: $device.name
+Time: $dateTool.format("YYYY-MM-dd HH:mm:ss", $event.serverTime, $locale, $timezone)
+Point: #{if}($position.address)$position.address#{else}$position.latitude&deg;, $position.longitude&deg;#{end}

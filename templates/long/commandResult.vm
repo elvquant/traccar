@@ -1,0 +1,6 @@
+#set($subject = "$device.name: command result received")
+#set($url = "$webUrl?eventId=$event.id")
+Device: $device.name
+Result: $position.getString("result")
+Time: $dateTool.format("YYYY-MM-dd HH:mm:ss", $event.serverTime, $locale, $timezone)
+Link: $webUrl?eventId=$event.id

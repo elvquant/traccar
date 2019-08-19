@@ -1,0 +1,3 @@
+#set($subject = "Test message")
+#set($url = "$webUrl")
+Test message body

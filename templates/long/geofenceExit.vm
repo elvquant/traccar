@@ -1,0 +1,6 @@
+#set($subject = "$device.name: has exited geofence")
+#set($url = "$webUrl?eventId=$event.id")
+Device: $device.name
+Has exited geofence: $geofence.name
+Time: $dateTool.format("YYYY-MM-dd HH:mm:ss", $event.serverTime, $locale, $timezone)
+Point: #{if}($position.address)$position.address#{else}$position.latitude&deg;, $position.longitude&deg;#{end}

@@ -1,0 +1,6 @@
+#set($subject = "$device.name: maintenance is required")
+#set($url = "$webUrl?eventId=$event.id")
+Device: $device.name
+Maintenance is required: $maintenance.name
+Time: $dateTool.format("YYYY-MM-dd HH:mm:ss", $event.serverTime, $locale, $timezone)
+Point: #{if}($position.address)$position.address#{else}$position.latitude&deg;, $position.longitude&deg;#{end}

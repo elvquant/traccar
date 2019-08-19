@@ -1,0 +1,3 @@
+#set($subject = "Unknown type")
+#set($url = "")
+Unknown type

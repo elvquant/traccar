@@ -1,0 +1,6 @@
+#set($subject = "$device.name: offline")
+#set($url = "$webUrl?eventId=$event.id")
+Device: $device.name
+Offline
+Time: $dateTool.format("YYYY-MM-dd HH:mm:ss", $event.serverTime, $locale, $timezone)
+Link: $webUrl?eventId=$event.id
